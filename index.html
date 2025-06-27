@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,7 +84,7 @@
     <img src="SB.svg.png"/>
     <h1 class="survey">Customer Experience Survey</h1>
     <p>Tell us where we can improve on!</p>
-    <form>
+    <form id ="googleForm">
         <fieldset>
             <legend>Personal Information</legend>
             Name: <input class="field" type="text" name="name" required><br><br>
@@ -110,25 +111,25 @@
                 <option value="1">1</option>
             </select><br><br>
             How satisfied are you with our service?<br>
-            <input type="radio" name="rating1" value="very_satisfied"> Very Satisfied <br>
-            <input type="radio" name="rating1" value="satisfied"> Satisfied <br>
-            <input type="radio" name="rating1" value="neutral"> Neutral <br>
-            <input type="radio" name="rating1" value="dissatisfied"> Dissatisfied <br>
-            <input type="radio" name="rating1" value="very_dissatisfied"> Very Dissatisfied <br><br>
+            <input type="radio" name="service_rating" value="very_satisfied"> Very Satisfied <br>
+            <input type="radio" name="service_rating" value="satisfied"> Satisfied <br>
+            <input type="radio" name="service_rating" value="neutral"> Neutral <br>
+            <input type="radio" name="service_rating" value="dissatisfied"> Dissatisfied <br>
+            <input type="radio" name="service_rating" value="very_dissatisfied"> Very Dissatisfied <br><br>
 
-            How would you rate the branch's environment?
-            <input type="radio" name="rating2" value="excellent"> Excellent <br>
-            <input type="radio" name="rating2" value="good"> Good <br>
-            <input type="radio" name="rating2" value="fair"> Fair <br>
-            <input type="radio" name="rating2" value="poor"> Poor <br>
-            <input type="radio" name="rating2" value="bad"> Bad<br><br>
+            How would you rate the branch's environment?<br>
+            <input type="radio" name="branch_environment" value="excellent"> Excellent <br>
+            <input type="radio" name="branch_environment" value="good"> Good <br>
+            <input type="radio" name="branch_environment" value="fair"> Fair <br>
+            <input type="radio" name="branch_environment" value="poor"> Poor <br>
+            <input type="radio" name="branch_environment" value="bad"> Bad<br><br>
 
             How would you rate the staff at the specific branch?<br>
-            <input type="radio" name="rating2" value="excellent"> Excellent <br>
-            <input type="radio" name="rating2" value="good"> Good <br>
-            <input type="radio" name="rating2" value="fair"> Fair <br>
-            <input type="radio" name="rating2" value="poor"> Poor <br>
-            <input type="radio" name="rating2" value="bad"> Bad<br><br>
+            <input type="radio" name="staff_rating" value="excellent"> Excellent <br>
+            <input type="radio" name="staff_rating" value="good"> Good <br>
+            <input type="radio" name="staff_rating" value="fair"> Fair <br>
+            <input type="radio" name="staff_rating" value="poor"> Poor <br>
+            <input type="radio" name="staff_rating" value="bad"> Bad<br><br>
             
             What features do you use? (Check all that apply): <br>
             <input type="checkbox" name="feature" value="chat"> Live Chat <br>
@@ -136,7 +137,7 @@
             <input type="checkbox" name="feature" value="faq"> FAQs <br><br>
             
             Preferred Contact Method:
-            <select name="contact_method">
+            <select name="contact_method" required>
                 <option value="">--Please choose--</option>
                 <option value="email">Email</option>
                 <option value="phone">Phone</option>
@@ -153,9 +154,38 @@
 
             <div style="text-align:center;">
             <input class="reset"type="reset" value="Reset Form">
-            <input class="submit"type="submit" value="Submit Survey">
+            <button class="submit" type="submit">Submit</button>
             </div>
     </form>
     </div>
+    <script>
+
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyU1XPWzgFft4zdOdXT_ClAwo7yqcjBV0Oekd3bCjwRNawMGgHP1wqoUt8uOPzc3FrMVA/exec';
+
+    const form = document.getElementById('googleForm');
+
+    
+
+    //When the user clicks the submit button, this function runs.
+
+    form.addEventListener('submit', e => {
+
+        e.preventDefault(); //This stops the browser’s default action of reloading
+
+        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+
+        .then(response => {
+
+            alert("Form submitted successfully!");
+
+            form.reset();
+
+        })
+
+        .catch(error => alert('Error!', error.message));
+
+    });
+
+    </script>
 </body>
 </html>
